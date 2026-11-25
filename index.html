@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ilias Papadogiannis</title>
+<meta name="description" content="Ilias Papadogiannis — educational data mining, statistical analysis and education policy evaluation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf7; --bg-2:#f3f1ec; --fg:#16171a; --fg-2:#54565c; --fg-3:#8b8d94;
+  --rule:#e2ded6; --accent:#1d4b63; --accent-soft:#e8eef1;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --wrap:68rem; --prose:40rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#111214; --bg-2:#191b1e; --fg:#eceae5; --fg-2:#a9abb1; --fg-3:#787a81;
+    --rule:#2b2e33; --accent:#8fc3da; --accent-soft:#1c2a31;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--sans); font-size:17px; line-height:1.68;
+  font-feature-settings:"kern","liga"; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 1.6rem}
+
+/* ---------- top bar ---------- */
+header.bar{
+  position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:saturate(1.6) blur(14px); border-bottom:1px solid var(--rule);
+}
+.bar .wrap{display:flex; align-items:center; gap:1.4rem; height:56px}
+.brand{font-family:var(--serif); font-weight:600; font-size:.98rem; letter-spacing:-.01em; white-space:nowrap}
+nav.links{display:flex; gap:1.3rem; margin-left:auto; font-size:.84rem; color:var(--fg-2)}
+nav.links a{text-decoration:none; padding:.2rem 0; border-bottom:1px solid transparent; transition:.15s}
+nav.links a:hover{color:var(--fg); border-bottom-color:var(--accent)}
+.langs{display:flex; border:1px solid var(--rule); border-radius:999px; overflow:hidden; margin-left:1rem}
+.langs button{
+  font:inherit; font-size:.74rem; letter-spacing:.07em; text-transform:uppercase;
+  padding:.3rem .62rem; background:transparent; color:var(--fg-3); border:0; cursor:pointer; transition:.15s;
+}
+.langs button[aria-pressed="true"]{background:var(--accent); color:#fff}
+@media (prefers-color-scheme:dark){.langs button[aria-pressed="true"]{color:#0f1417}}
+@media(max-width:760px){nav.links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:5.5rem 0 3.6rem; border-bottom:1px solid var(--rule); position:relative; overflow:hidden}
+.hero::before{
+  content:""; position:absolute; inset:-30% -10% auto -10%; height:120%;
+  background:radial-gradient(60% 55% at 22% 0%,var(--accent-soft),transparent 70%);
+  opacity:.75; pointer-events:none;
+}
+.hero .wrap{position:relative}
+h1{
+  font-family:var(--serif); font-weight:600; letter-spacing:-.025em; line-height:1.04;
+  font-size:clamp(2.5rem,7vw,4.4rem); margin:0 0 1rem; max-width:14ch;
+}
+.role{font-size:1.08rem; color:var(--fg-2); max-width:34rem; margin:0 0 1.5rem}
+.affil{font-size:.93rem; color:var(--fg-2); margin:0 0 2rem; max-width:34rem}
+.affil span{display:block}
+.idlinks{display:flex; flex-wrap:wrap; gap:.55rem}
+.idlinks a{
+  display:inline-flex; align-items:center; gap:.42rem; text-decoration:none;
+  font-size:.86rem; padding:.42rem .85rem; border:1px solid var(--rule);
+  border-radius:999px; background:var(--bg); transition:.15s;
+}
+.idlinks a:hover{border-color:var(--accent); color:var(--accent)}
+.idlinks svg{width:14px; height:14px; flex:none}
+
+/* ---------- sections ---------- */
+section{padding:4.2rem 0; border-bottom:1px solid var(--rule)}
+.label{
+  font-size:.73rem; letter-spacing:.17em; text-transform:uppercase;
+  color:var(--fg-3); margin:0 0 .6rem;
+}
+h2{
+  font-family:var(--serif); font-weight:600; letter-spacing:-.018em;
+  font-size:clamp(1.6rem,3.4vw,2.1rem); margin:0 0 1.8rem; line-height:1.15;
+}
+.prose{max-width:var(--prose)}
+.prose p{margin:0 0 1.15rem; color:var(--fg-2)}
+.prose p:last-child{margin-bottom:0}
+.cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:3rem}
+@media(max-width:800px){.cols{grid-template-columns:1fr; gap:2.4rem}}
+
+/* ---------- publications ---------- */
+.filters{display:flex; flex-wrap:wrap; gap:.45rem; margin:0 0 2.2rem}
+.filters button{
+  font:inherit; font-size:.82rem; padding:.35rem .85rem; border-radius:999px; cursor:pointer;
+  border:1px solid var(--rule); background:transparent; color:var(--fg-2); transition:.15s;
+}
+.filters button:hover{color:var(--fg)}
+.filters button[aria-pressed="true"]{background:var(--fg); color:var(--bg); border-color:var(--fg)}
+.pubyear{display:grid; grid-template-columns:5.5rem minmax(0,1fr); gap:1.6rem; padding:1.5rem 0; border-top:1px solid var(--rule)}
+.pubyear:first-of-type{border-top:0}
+.yr{font-family:var(--serif); font-size:1.05rem; color:var(--fg-3); padding-top:.15rem}
+.pub{margin:0 0 1.6rem}
+.pub:last-child{margin-bottom:0}
+.pub .t{font-family:var(--serif); font-size:1.06rem; line-height:1.4; margin:0 0 .3rem}
+.pub .t a{text-decoration:none; background-image:linear-gradient(var(--accent),var(--accent));
+  background-size:0% 1px; background-repeat:no-repeat; background-position:0 95%; transition:background-size .22s}
+.pub .t a:hover{background-size:100% 1px; color:var(--accent)}
+.pub .a{font-size:.88rem; color:var(--fg-2); margin:0 0 .22rem}
+.pub .a strong{font-weight:600; color:var(--fg)}
+.pub .v{font-size:.86rem; color:var(--fg-3); margin:0}
+.pub .v em{font-style:italic}
+.tag{
+  display:inline-block; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--fg-3); border:1px solid var(--rule); border-radius:4px; padding:.05rem .4rem; margin-left:.45rem;
+  vertical-align:.1em;
+}
+@media(max-width:620px){.pubyear{grid-template-columns:1fr; gap:.5rem} .yr{padding-top:0}}
+
+/* ---------- timeline ---------- */
+.tl{margin:0}
+.item{display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:1.6rem; padding:1.3rem 0; border-top:1px solid var(--rule)}
+.item:first-child{border-top:0; padding-top:0}
+.when{font-size:.84rem; color:var(--fg-3); font-variant-numeric:tabular-nums; padding-top:.2rem}
+.what h3{font-family:var(--sans); font-weight:600; font-size:.99rem; margin:0 0 .18rem; line-height:1.4}
+.what .org{font-size:.88rem; color:var(--fg-2); margin:0 0 .4rem}
+.what p.d{font-size:.89rem; color:var(--fg-2); margin:0}
+@media(max-width:620px){.item{grid-template-columns:1fr; gap:.35rem}}
+
+/* ---------- skills ---------- */
+.chips{display:flex; flex-wrap:wrap; gap:.45rem; margin:.7rem 0 0}
+.chip{font-size:.84rem; padding:.3rem .72rem; border:1px solid var(--rule); border-radius:6px; color:var(--fg-2)}
+.kv{margin:0 0 1.6rem}
+.kv:last-child{margin-bottom:0}
+.kv h3{font-family:var(--sans); font-weight:600; font-size:.99rem; margin:0 0 .3rem}
+.kv p{font-size:.9rem; color:var(--fg-2); margin:0}
+
+/* ---------- footer ---------- */
+footer{padding:3rem 0 4rem; font-size:.85rem; color:var(--fg-3)}
+footer a{color:var(--fg-2)}
+footer .fl{display:flex; flex-wrap:wrap; gap:1.2rem; justify-content:space-between}
+::selection{background:var(--accent); color:#fff}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand" data-t="brand"></span>
+    <nav class="links">
+      <a href="#research" data-t="nav_research"></a>
+      <a href="#publications" data-t="nav_pubs"></a>
+      <a href="#experience" data-t="nav_exp"></a>
+      <a href="#education" data-t="nav_edu"></a>
+      <a href="#contact" data-t="nav_contact"></a>
+    </nav>
+    <div class="langs">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="el" aria-pressed="false">EL</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1 data-t="name"></h1>
+    <p class="role" data-t="role"></p>
+    <p class="affil"><span data-t="affil1"></span><span data-t="affil2"></span></p>
+    <div class="idlinks">
+      <a href="mailto:hpapadogiannis@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        <span data-t="l_email"></span></a>
+      <a href="https://scholar.google.gr/citations?user=ZWBgdXoAAAAJ&amp;hl=el">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 1 9l11 6 9-4.9V17"/><path d="M5 12.3V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-4.7"/></svg>
+        Google Scholar</a>
+      <a href="https://orcid.org/0000-0002-7758-0571">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 9v7M9 6.5v.01M13 9h1.6a3.5 3.5 0 0 1 0 7H13V9Z"/></svg>
+        ORCID</a>
+    </div>
+  </div>
+</div>
+
+<section id="research">
+  <div class="wrap cols">
+    <div>
+      <p class="label" data-t="lab_research"></p>
+      <h2 data-t="h_research"></h2>
+    </div>
+    <div class="prose" id="researchProse"></div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <p class="label" data-t="lab_pubs"></p>
+    <h2 data-t="h_pubs"></h2>
+    <div class="filters">
+      <button type="button" data-f="all" aria-pressed="true"></button>
+      <button type="button" data-f="journal" aria-pressed="false"></button>
+      <button type="button" data-f="conference" aria-pressed="false"></button>
+    </div>
+    <div id="pubs"></div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap cols">
+    <div>
+      <p class="label" data-t="lab_exp"></p>
+      <h2 data-t="h_exp"></h2>
+    </div>
+    <div class="tl" id="expList"></div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap cols">
+    <div>
+      <p class="label" data-t="lab_edu"></p>
+      <h2 data-t="h_edu"></h2>
+    </div>
+    <div class="tl" id="eduList"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap cols">
+    <div>
+      <p class="label" data-t="lab_more"></p>
+      <h2 data-t="h_more"></h2>
+    </div>
+    <div>
+      <div class="kv">
+        <h3 data-t="k_skills"></h3>
+        <p data-t="k_skills_d"></p>
+        <div class="chips" id="skillChips"></div>
+      </div>
+      <div class="kv">
+        <h3 data-t="k_lang"></h3>
+        <p data-t="k_lang_d"></p>
+      </div>
+      <div class="kv">
+        <h3 data-t="k_review"></h3>
+        <p data-t="k_review_d"></p>
+      </div>
+      <div class="kv">
+        <h3 data-t="k_cert"></h3>
+        <p data-t="k_cert_d"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fl">
+    <span data-t="foot"></span>
+    <span><a href="mailto:hpapadogiannis@gmail.com">hpapadogiannis@gmail.com</a></span>
+  </div>
+</footer>
+
+<script>
+const ME = "I. Papadogiannis", ME_EL = "Η. Παπαδογιάννης";
+
+const PUBS = [
+ {y:2026,k:"journal",t:"Underrepresentation of Women in STEM Higher Education: Evidence from Three Departments of the University of the Peloponnese",
+  a:["E. Golegou","A. Katsis","M. Wallace","*","C. Vassilakis","K. Peppas"],v:"Trends in Higher Education",d:"5(2), 41",doi:"10.3390/higheredu5020041"},
+ {y:2025,k:"journal",t:"CORE: Cultivation of Collaboration Skills via Educational Robotics",
+  a:["E. A. Demetroulis","*","M. Wallace","V. Poulopoulos","A. Antoniou"],v:"Knowledge",d:"5(2), 9",doi:"10.3390/knowledge5020009"},
+ {y:2024,k:"journal",t:"Educational Data Mining: A Foundational Overview",
+  a:["*","M. Wallace","G. Karountzou"],v:"Encyclopedia",d:"4(4), 1644–1664",doi:"10.3390/encyclopedia4040108"},
+ {y:2024,k:"journal",t:"Challenges and Trends in Student Evaluation of Teaching: Analysis of SET Data from the University of Peloponnese",
+  a:["*","C. Vassilakis","M. Wallace","A. Katsis"],v:"Information",d:"15(9), 576",doi:"10.3390/info15090576"},
+ {y:2024,k:"journal",t:"Collaboration Skills and Puzzles: Development of a Performance-Based Assessment—Results from 12 Primary Schools in Greece",
+  a:["E. A. Demetroulis","*","M. Wallace","V. Poulopoulos","A. Theodoropoulos","N. Vasilopoulos","A. Antoniou","F. Dasakli"],v:"Education Sciences",d:"14(10), 1056",doi:"10.3390/educsci14101056"},
+ {y:2024,k:"journal",t:"On the Quality and Validity of Course Evaluation Questionnaires Used in Tertiary Education in Greece",
+  a:["*","C. Vassilakis","M. Wallace","A. Katsis"],v:"Trends in Higher Education",d:"3(2), 221–234",doi:"10.3390/higheredu3020013"},
+ {y:2023,k:"journal",t:"First Grade GPA as a Predictor of Later Academic Performance in High School",
+  a:["*","V. Poulopoulos","N. Platis","C. Vassilakis","G. Lepouras","M. Wallace"],v:"Knowledge",d:"3(3), 513–524",doi:"10.3390/knowledge3030033"},
+ {y:2023,k:"journal",t:"An Assessment of the Effectiveness of the Remedial Teaching Education Policy",
+  a:["*","M. Wallace","V. Poulopoulos","C. Vassilakis","G. Lepouras","N. Platis"],v:"Knowledge",d:"3(3), 349–363",doi:"10.3390/knowledge3030024"},
+ {y:2022,k:"conference",t:"Examining Pupils’ Achievement in Primary and Secondary Schools in Greece",
+  a:["*","M. Wallace","V. Poulopoulos"],v:"European Journal of Engineering and Technology Research",d:"10–18",
+  note:{en:"14th Conference on Informatics in Education (CIE 2022)",el:"14ο Συνέδριο Πληροφορικής στην Εκπαίδευση (CIE 2022)"},doi:"10.24018/ejeng.2022.1.CIE.2958"},
+ {y:2021,k:"journal",t:"A First Ever Look into Greece’s Vast Educational Data: Interesting Findings and Policy Implications",
+  a:["*","M. Wallace","V. Poulopoulos","G. Karountzou","D. Ekonomopoulos"],v:"Education Sciences",d:"11(9), 489",doi:"10.3390/educsci11090489"},
+ {y:2021,k:"journal",t:"Η συμβολή του Erasmus+ στη βελτίωση της επίδοσης (εγγραμματισμού) των μαθητών/τριών σύμφωνα με τους/τις εκπαιδευτικούς της ΠΔΕ Πελοποννήσου",
+  a:["*","Μ. Πλιώτα","Γ. Καρούντζου"],v:"Νέος Παιδαγωγός",d:"27, 261–269",
+  note:{en:"Published in Greek. ISSN 2241-6781",el:"Δημοσιευμένο στα ελληνικά. ISSN 2241-6781"}},
+ {y:2020,k:"journal",t:"A Critical Review of Data Mining for Education: What has been done, what has been learnt and what remains to be seen",
+  a:["*","V. Poulopoulos","M. Wallace"],v:"International Journal of Educational Research Review",d:"5(4), 353–372",doi:"10.24331/ijere.755047"},
+ {y:2020,k:"conference",t:"Visualizing the Educational Data Mining Literature",
+  a:["*","N. Platis","V. Poulopoulos","C. Vassilakis","G. Lepouras","M. Wallace","G. Karountzou"],v:"European Journal of Engineering and Technology Research",
+  note:{en:"12th Conference on Informatics in Education (CIE 2020)",el:"12ο Συνέδριο Πληροφορικής στην Εκπαίδευση (CIE 2020)"},doi:"10.24018/ejeng.2020.0.CIE.2306"},
+ {y:2018,k:"conference",t:"Digital Citizenship in Greek Primary Schools in Peloponnese",
+  a:["*"],v:"Citizenship Education Conference",
+  note:{en:"ISBN 978-83-8100-127-4",el:"ISBN 978-83-8100-127-4"}}
+];
+
+const EXP = [
+ {w:"2025 —",en:["Adult Trainer","Vocational Training Centre (KEK)","Training of adults in digital transformation and artificial intelligence."],
+            el:["Εκπαιδευτής ενηλίκων","Κέντρο Επαγγελματικής Κατάρτισης (ΚΕΚ)","Διδασκαλία και κατάρτιση ενηλίκων σε θέματα ψηφιακού μετασχηματισμού και τεχνητής νοημοσύνης."]},
+ {w:"2021 —",en:["Deputy Director, Administrative, Financial and Pedagogical Support","Regional Directorate of Education of the Peloponnese","Strategic planning and SMART objectives, coordination of departments, management of organisational change, digitisation of procedures and development of human resources."],
+            el:["Αναπληρωτής Διευθυντής Διοικητικής, Οικονομικής και Παιδαγωγικής Υποστήριξης","Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου","Στρατηγικός σχεδιασμός και στοχοθεσία SMART, συντονισμός τμημάτων, διαχείριση οργανωτικών αλλαγών, ψηφιοποίηση διαδικασιών και ανάπτυξη ανθρώπινου δυναμικού."]},
+ {w:"2021 —",en:["Chair of the Regional Service Council (PYSDIP)","Regional Directorate of Education of the Peloponnese",""],
+            el:["Πρόεδρος Υπηρεσιακού Συμβουλίου (ΠΥΣΔΙΠ)","Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου",""]},
+ {w:"2018 —",en:["Head of the Department of Informatics and New Technologies","Regional Directorate of Education of the Peloponnese","Management of the region’s information systems (my_school, opsyd, e-data, Diavgeia, Papyros), network infrastructure, personal data and the digitisation of administrative procedures."],
+            el:["Προϊστάμενος Τμήματος Πληροφορικής και Νέων Τεχνολογιών","Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου","Διαχείριση πληροφοριακών συστημάτων (my_school, opsyd, e-data, Διαύγεια, Πάπυρος), δικτυακής υποδομής, προσωπικών δεδομένων και ψηφιοποίηση διοικητικών διαδικασιών."]},
+ {w:"2018 —",en:["Adult Trainer","National Centre for Public Administration and Local Government (EKDDA)","Modules in administration, statistics, economics and accounting for public-sector officials, with work on learning outcome design and programme evaluation."],
+            el:["Εκπαιδευτής ενηλίκων","Εθνικό Κέντρο Δημόσιας Διοίκησης και Αυτοδιοίκησης (ΕΚΔΔΑ)","Θεματικές ενότητες Διοίκησης, Στατιστικής, Οικονομίας και Λογιστικής για στελέχη δημόσιας διοίκησης, με σχεδιασμό μαθησιακών αποτελεσμάτων και αξιολόγηση προγραμμάτων."]},
+ {w:"2018 —",en:["Instructor","Vocational Training Schools (SAEK)","Courses in administration, statistics and accounting."],
+            el:["Εκπαιδευτής","Σχολές Ανώτερης Επαγγελματικής Κατάρτισης (ΣΑΕΚ)","Μαθήματα Διοίκησης, Στατιστικής και Λογιστικής."]},
+ {w:"2014 —",en:["Manager of European Programmes (Erasmus+)","Regional Directorate of Education of the Peloponnese","European programmes with a combined budget above €2 million (IDEA, Initiation, SUSEDI), and dozens of information days and workshops for teachers."],
+            el:["Διαχειριστής ευρωπαϊκών προγραμμάτων (Erasmus+)","Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου","Ευρωπαϊκά προγράμματα συνολικού ύψους άνω των 2 εκατ. ευρώ (IDEA, Initiation, SUSEDI), και δεκάδες ημερίδες και εργαστήρια για εκπαιδευτικούς."]},
+ {w:"2011 – 2016",en:["Head of the Administrative Department","Regional Directorate of Education of the Peloponnese",""],
+            el:["Προϊστάμενος Διοικητικού Τμήματος","Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου",""]},
+ {w:"2005 – 2011",en:["Administrative Officer","Hellenic Ministry of Education","Secondary Education Office of Arcadia and the Regional Directorate of Education of the Peloponnese."],
+            el:["Διοικητικός υπάλληλος","Υπουργείο Παιδείας","Γραφείο Δευτεροβάθμιας Εκπαίδευσης Αρκαδίας και Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου."]},
+ {w:"2000 – 2005",en:["Stockbroker","EFG Eurobank Securities",""],
+            el:["Χρηματιστής","EFG Eurobank Α.Χ.Ε.Π.Ε.Υ.",""]}
+];
+
+const EDU = [
+ {w:"2023 – 2025",en:["Postdoctoral Research","University of the Peloponnese","Analysis of educational data, with a focus on the evaluation of teaching in higher education."],
+               el:["Μεταδιδακτορική έρευνα","Πανεπιστήμιο Πελοποννήσου","Ανάλυση εκπαιδευτικών δεδομένων, με έμφαση στην αξιολόγηση του διδακτικού έργου στα ΑΕΙ."]},
+ {w:"2019 – 2023",en:["PhD, Informatics and Telecommunications","University of the Peloponnese","Awarded with distinction. Thesis on data analysis as a decision-support tool in Greek education."],
+               el:["Διδακτορικό δίπλωμα, Πληροφορική και Τηλεπικοινωνίες","Πανεπιστήμιο Πελοποννήσου","Βαθμός Άριστα. Θέμα, η ανάλυση δεδομένων ως εργαλείο υποστήριξης αποφάσεων στην ελληνική εκπαίδευση."]},
+ {w:"2015 – 2017",en:["MSc, Entrepreneurship and Governance","University of the Peloponnese","Governance track."],
+               el:["Μεταπτυχιακό δίπλωμα, Επιχειρηματικότητα και Διακυβέρνηση","Πανεπιστήμιο Πελοποννήσου","Κατεύθυνση Διακυβέρνησης."]},
+ {w:"1997 – 2007",en:["BSc, Business Administration","Athens University of Economics and Business",""],
+               el:["Πτυχίο Οργάνωσης και Διοίκησης Επιχειρήσεων","Οικονομικό Πανεπιστήμιο Αθηνών",""]},
+ {w:"1993 – 1997",en:["BSc, Accounting","Technological Educational Institute of Patras",""],
+               el:["Πτυχίο Λογιστικής (ΤΕ)","ΤΕΙ Πάτρας",""]}
+];
+
+const SKILLS = ["R","Python","SQL / MS-SQL","SPSS","KNIME","Weka","Microsoft Server","Microsoft Office"];
+
+const T = {
+ en:{
+  brand:"Ilias Papadogiannis",
+  nav_research:"Research", nav_pubs:"Publications", nav_exp:"Experience", nav_edu:"Education", nav_contact:"More",
+  name:"Ilias Papadogiannis",
+  role:"PhD, University of the Peloponnese. Former postdoctoral researcher in the analysis of educational data.",
+  affil1:"Regional Directorate of Education of the Peloponnese, Hellenic Ministry of Education",
+  affil2:"University of the Peloponnese",
+  l_email:"Email",
+  lab_research:"Research", h_research:"What I work on",
+  research:[
+   "My research sits where methods from machine learning and statistics meet the administrative data that education systems already collect. Greek primary and secondary education generate large volumes of records that have rarely been analysed as a whole, and much of my work asks what those records show once they are examined systematically.",
+   "A good deal of it concerns evaluation. Whether first grade marks predict later achievement, whether remedial teaching policy actually changes outcomes, and whether the questionnaires used to evaluate teaching in Greek universities measure what they claim to measure.",
+   "A second strand turns back on the field itself, through reviews of what educational data mining has established so far and what remains open."
+  ],
+  lab_pubs:"Publications", h_pubs:"Peer-reviewed work",
+  f_all:"All", f_journal:"Journal articles", f_conference:"Conference papers",
+  lab_exp:"Experience", h_exp:"Positions held",
+  lab_edu:"Education", h_edu:"Studies",
+  lab_more:"More", h_more:"Skills, review work and certification",
+  k_skills:"Data analysis", k_skills_d:"Inferential and descriptive methods, including regression, exploratory and confirmatory factor analysis and structural equation modelling, alongside data mining techniques for regression, classification and clustering.",
+  k_lang:"Languages", k_lang_d:"Greek, native. English, level C1.",
+  k_review:"Peer review", k_review_d:"Reviewer for MDPI journals ranked in the first and second quartiles, with more than twenty reviews over the past year, and member of the review committee of the 11th International Conference of the Institute of Humanities and Social Sciences.",
+  k_cert:"Certification", k_cert_d:"Professional Competence for Human Resources Development Consultants, National Centre for Public Administration and Local Government.",
+  foot:"© 2026 Ilias Papadogiannis"
+ },
+ el:{
+  brand:"Ηλίας Παπαδογιάννης",
+  nav_research:"Έρευνα", nav_pubs:"Δημοσιεύσεις", nav_exp:"Εμπειρία", nav_edu:"Σπουδές", nav_contact:"Περισσότερα",
+  name:"Ηλίας Παπαδογιάννης",
+  role:"Διδάκτωρ Πανεπιστημίου Πελοποννήσου. Πρώην μεταδιδακτορικός ερευνητής στην ανάλυση εκπαιδευτικών δεδομένων.",
+  affil1:"Περιφερειακή Διεύθυνση Εκπαίδευσης Πελοποννήσου, Υπουργείο Παιδείας",
+  affil2:"Πανεπιστήμιο Πελοποννήσου",
+  l_email:"Επικοινωνία",
+  lab_research:"Έρευνα", h_research:"Με τι ασχολούμαι",
+  research:[
+   "Η έρευνά μου τοποθετείται εκεί όπου οι μέθοδοι της μηχανικής μάθησης και της στατιστικής συναντούν τα διοικητικά δεδομένα που ήδη συγκεντρώνουν τα εκπαιδευτικά συστήματα. Η ελληνική πρωτοβάθμια και δευτεροβάθμια εκπαίδευση παράγει τεράστιο όγκο εγγραφών που σπάνια αναλύθηκαν συνολικά, και μεγάλο μέρος της δουλειάς μου ρωτά τι δείχνουν αυτές οι εγγραφές όταν εξεταστούν συστηματικά.",
+   "Αρκετό από αυτό αφορά την αξιολόγηση. Αν οι βαθμοί της πρώτης τάξης προβλέπουν τη μετέπειτα επίδοση, αν η πολιτική της ενισχυτικής διδασκαλίας μεταβάλλει πράγματι τα αποτελέσματα, και αν τα ερωτηματολόγια που χρησιμοποιούνται για την αξιολόγηση του διδακτικού έργου στα ελληνικά πανεπιστήμια μετρούν όσα ισχυρίζονται ότι μετρούν.",
+   "Μια δεύτερη γραμμή στρέφεται στο ίδιο το πεδίο, μέσα από ανασκοπήσεις για όσα έχει εδραιώσει ως τώρα η εξόρυξη εκπαιδευτικών δεδομένων και για όσα παραμένουν ανοιχτά."
+  ],
+  lab_pubs:"Δημοσιεύσεις", h_pubs:"Εργασίες με κρίση",
+  f_all:"Όλες", f_journal:"Άρθρα σε περιοδικά", f_conference:"Ανακοινώσεις σε συνέδρια",
+  lab_exp:"Εμπειρία", h_exp:"Θέσεις",
+  lab_edu:"Σπουδές", h_edu:"Εκπαίδευση",
+  lab_more:"Περισσότερα", h_more:"Δεξιότητες, κρίσεις και πιστοποίηση",
+  k_skills:"Ανάλυση δεδομένων", k_skills_d:"Επαγωγικές και περιγραφικές μέθοδοι, όπως παλινδρόμηση, διερευνητική και επιβεβαιωτική ανάλυση παραγόντων και μοντέλα δομικών εξισώσεων, μαζί με τεχνικές εξόρυξης δεδομένων για παλινδρόμηση, ταξινόμηση και ομαδοποίηση.",
+  k_lang:"Γλώσσες", k_lang_d:"Ελληνικά, μητρική γλώσσα. Αγγλικά, επίπεδο C1.",
+  k_review:"Κρίσεις", k_review_d:"Κριτής σε περιοδικά της MDPI πρώτου και δεύτερου τεταρτημορίου, με πάνω από είκοσι κρίσεις το περασμένο έτος, και μέλος της Επιτροπής Κριτών του 11ου Διεθνούς Συνεδρίου του Ινστιτούτου Ανθρωπιστικών και Κοινωνικών Επιστημών.",
+  k_cert:"Πιστοποίηση", k_cert_d:"Επαγγελματική Επάρκεια Συμβούλων Ανάπτυξης Ανθρώπινου Δυναμικού, Εθνικό Κέντρο Δημόσιας Διοίκησης και Αυτοδιοίκησης.",
+  foot:"© 2026 Ηλίας Παπαδογιάννης"
+ }
+};
+
+let lang = "en", filter = "all";
+try{ const s = localStorage.getItem("lang"); if(s==="el"||s==="en") lang = s; }catch(e){}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderPubs(){
+  const t = T[lang];
+  const list = PUBS.filter(p => filter === "all" || p.k === filter);
+  const years = [...new Set(list.map(p => p.y))].sort((a,b) => b - a);
+  document.getElementById("pubs").innerHTML = years.map(y => {
+    const items = list.filter(p => p.y === y).map(p => {
+      const authors = p.a.map(a => a === "*" ? "<strong>" + (lang === "el" ? ME_EL : ME) + "</strong>" : esc(a)).join(", ");
+      const title = p.doi
+        ? '<a href="https://doi.org/' + esc(p.doi) + '">' + esc(p.t) + "</a>"
+        : esc(p.t);
+      const kind = '<span class="tag">' + (p.k === "journal" ? (lang === "el" ? "άρθρο" : "article") : (lang === "el" ? "συνέδριο" : "conference")) + "</span>";
+      let venue = "<em>" + esc(p.v) + "</em>";
+      if(p.d) venue += ", " + esc(p.d);
+      if(p.note) venue += ". " + esc(p.note[lang]);
+      return '<div class="pub"><p class="t">' + title + kind + '</p><p class="a">' + authors + '</p><p class="v">' + venue + "</p></div>";
+    }).join("");
+    return '<div class="pubyear"><div class="yr">' + y + '</div><div>' + items + "</div></div>";
+  }).join("");
+  document.querySelectorAll(".filters button").forEach(b => {
+    b.textContent = t["f_" + b.dataset.f];
+    b.setAttribute("aria-pressed", String(b.dataset.f === filter));
+  });
+}
+
+function renderList(el, rows){
+  document.getElementById(el).innerHTML = rows.map(r => {
+    const [role, org, desc] = r[lang];
+    return '<div class="item"><div class="when">' + esc(r.w) + '</div><div class="what">' +
+      "<h3>" + esc(role) + "</h3><p class=\"org\">" + esc(org) + "</p>" +
+      (desc ? '<p class="d">' + esc(desc) + "</p>" : "") + "</div></div>";
+  }).join("");
+}
+
+function render(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.title = t.brand;
+  document.querySelectorAll("[data-t]").forEach(n => { if(t[n.dataset.t] !== undefined) n.textContent = t[n.dataset.t]; });
+  document.getElementById("researchProse").innerHTML = t.research.map(p => "<p>" + esc(p) + "</p>").join("");
+  document.getElementById("skillChips").innerHTML = SKILLS.map(s => '<span class="chip">' + esc(s) + "</span>").join("");
+  renderList("expList", EXP);
+  renderList("eduList", EDU);
+  renderPubs();
+  document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+}
+
+document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => {
+  lang = b.dataset.lang;
+  try{ localStorage.setItem("lang", lang); }catch(e){}
+  render();
+}));
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.f; renderPubs();
+}));
+
+render();
+</script>
+</body>
+</html>
